@@ -15,7 +15,6 @@ import selenium.selenium_pages.SignUpPage;
 public class SignupPageTest {
 	private WebDriver driver;
 	private SignUpPage signup;
-	
 	@BeforeClass
 	public void OpenDriver() {
 		driver = new FirefoxDriver();
@@ -75,8 +74,6 @@ public class SignupPageTest {
 		signup.reenterPassword("1235");
 		signup.clickButton();
 		List<String> errors = signup.getErrors();
-		System.out.println("Helloooo"+errors+"  "+errors.size());
-		
 		Assert.assertTrue(TestHelper.isStringPresent(errors, "Passwords do not match; please enter a password and reenter to confirm.\nPasswords must contain at least 6 characters and no spaces."));
 	}
 	@Test(priority=1)
@@ -103,7 +100,6 @@ public class SignupPageTest {
 		Assert.assertFalse(TestHelper.isStringPresent(errors, "Please enter your last name."));
 		Assert.assertFalse(TestHelper.isStringPresent(errors, "Please enter your first name."));
 	}
-	
 	@Test(priority=2)
 	public void completeSignUpProcess(){
 		// you want to run this test in the last
@@ -117,5 +113,4 @@ public class SignupPageTest {
 		// must go to home page but wont as the mail id used here is already registered for an account, so just check for single error
 		Assert.assertEquals(1, signup.getErrors().size());
 	}
-
 }

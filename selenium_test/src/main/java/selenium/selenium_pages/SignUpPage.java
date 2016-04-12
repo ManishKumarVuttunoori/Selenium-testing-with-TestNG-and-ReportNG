@@ -14,6 +14,7 @@ public class SignUpPage {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
+	
 	public SignUpPage(WebDriver driver){
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver,20);

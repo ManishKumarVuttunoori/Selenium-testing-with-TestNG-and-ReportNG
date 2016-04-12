@@ -1,5 +1,4 @@
 package selenium_test;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -7,23 +6,20 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import selenium.selenium_pages.FilePage;
 import selenium.selenium_pages.HomePage;
 import selenium.selenium_pages.MainPage;
 import selenium.selenium_pages.SignInPage;
 
-public class HomePageTest {
+public class FilePageTest {
 	private WebDriver driver;
-	private HomePage homePage;
+	private FilePage filePage;
 	private String id;
 	private String password;
-	
 	@BeforeClass
-	public void OpenDriver() {
+	public void openDriver(){
 		driver = new FirefoxDriver();
-		//must sign in to perform the tests
-		driver.get("http://www.wolframcloud.com/");
+		driver.get("http://www.wolframcloud.com");
 		MainPage mainPage = PageFactory.initElements(driver, MainPage.class);
 		mainPage.goToSignInPage();
 		SignInPage signIn = PageFactory.initElements(driver,SignInPage.class);
@@ -32,24 +28,25 @@ public class HomePageTest {
 		signIn.enterId(this.id);
 		signIn.enterPassword(this.password);
 		signIn.goTologinPage();
-		homePage = PageFactory.initElements(driver,HomePage.class);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		homePage.createNoteBook();
+		filePage = PageFactory.initElements(driver,FilePage.class);
 	}
-	
 	@AfterClass
-	public void CloseDriver() {
-		//signout of the homePage
-		homePage.signOut();
-		// close the drivers
+	public void closeDriver(){
+		filePage.signOut();
 		driver.close();
 		driver.quit();
 	}
+	
 	@Test(priority=0)
-	public void confirmHomePage(){
-		Assert.assertTrue(homePage.isHomePageLoaded());
-	}
-	@Test(priority=1)
-	public void isCorrectAccountOpened(){
-		Assert.assertEquals(homePage.getAccountMailId(), this.id);
+	public void confirmFilePage(){
+		Assert.assertTrue(filePage.isFilePageLoaded());
 	}
 	
+	@Test(priority=1)
+	public void checkIfNewBookIsCreated()
+	{
+		Assert.assertTrue(filePage.verifyNBExists());
+	}
 }

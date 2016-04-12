@@ -46,6 +46,8 @@ public class HomePage {
 	}
 	public String getAccountMailId(){
 		clickElement(accountButton);
-		return accountMail.getAttribute("title").toString().trim();
+		String mailId= accountMail.getAttribute("title").toString().trim();
+		clickElement(accountButton);
+		return mailId;
 	}
 }

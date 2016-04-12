@@ -12,12 +12,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class FilePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	
+	private String tempHandle;
 	public FilePage(WebDriver driver)
 	{
-		
 		PageFactory.initElements(driver, this);
-		String tempHandle = driver.getWindowHandle();
+		tempHandle = driver.getWindowHandle();
 		String  handle =""; 
 		Set<String> handles = driver.getWindowHandles();
 		for(String hnd: handles)
@@ -29,7 +28,6 @@ public class FilePage {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver,20);
 		wait.until(ExpectedConditions.elementToBeClickable(divField));
-		
 	}
 	@FindBy(css="#header-account")private WebElement accountButton;
 	@FindBy(css="#account-signout")private WebElement signoutButton;
@@ -42,7 +40,10 @@ public class FilePage {
 	
 	public Boolean verifyNBExists(){
 		clickElement(divField);
-		return renameField.getAttribute("value").equals(".nb");
+		Boolean nBExists =  renameField.getAttribute("value").equals(".nb");
+		driver.close();
+		driver.switchTo().window(tempHandle);
+		return nBExists;
 	}
 	
 	private void clickElement(WebElement element){
@@ -51,6 +52,7 @@ public class FilePage {
 	}
 	public void signOut(){
 		clickElement(accountButton);
+		
 		clickElement(signoutButton);
 	}
 }

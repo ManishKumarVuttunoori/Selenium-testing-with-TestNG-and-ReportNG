@@ -9,26 +9,30 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import selenium.selenium_pages.MainPage;
+import selenium.selenium_pages.SignInPage;
 
-
-public class MainPageTest {
+public class SignInPageTest {
+	
 	private WebDriver driver;
-	private MainPage mainPage;
+	private SignInPage signIn;
 	
 	@BeforeClass
-	public void OpenDriver() {
+	public void openDriver(){
 		driver = new FirefoxDriver();
-		mainPage = PageFactory.initElements(driver,MainPage.class);
+		driver.get("http://www.wolframcloud.com");
+		MainPage mainPage = PageFactory.initElements(driver,MainPage.class);
+		mainPage.goToSignInPage();
+		signIn = PageFactory.initElements(driver, SignInPage.class);
 	}
 	
 	@AfterClass
-	public void CloseDriver() {
+	public void closeDriver(){
 		driver.close();
 		driver.quit();
 	}
-	
 	@Test(priority=0)
-	public void confirmMainPage(){		
-		Assert.assertTrue(mainPage.isMainPageLoaded());
+	public void confirmSignInPage(){
+	Assert.assertTrue(signIn.isSignInPageLoaded());	
 	}
+	
 }

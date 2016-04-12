@@ -6,9 +6,11 @@
   </listeners>
   <test name="Test">
     <classes>
-		<class name="selenium_test.MainPageTest"/>    	
-		<class name="selenium_test.SignupPageTest"/>
+		<class name = "selenium_test.MainPageTest"/>    	
+		<class name = "selenium_test.SignupPageTest"/>
+		<class name = "selenium_test.SignInPageTest"/>
 		<class name = "selenium_test.HomePageTest"/>
+		<class name = "selenium_test.FilePageTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
