@@ -46,7 +46,7 @@ public class SignInPage{
 		signinButton.submit();
 		
 	}
-	public void clickSubmit() throws Exception{
+	public void clickSubmit(){
 		
 		wait.until(ExpectedConditions.elementToBeClickable(createButton));
 		JavascriptExecutor js = (JavascriptExecutor) driver;

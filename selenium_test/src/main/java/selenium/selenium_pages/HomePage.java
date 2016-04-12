@@ -23,6 +23,7 @@ public class HomePage {
 	@FindBy(css="")private WebElement fileField;
 	@FindBy(css="#header-account")private WebElement accountButton;
 	@FindBy(css="#account-signout")private WebElement signoutButton;
+	@FindBy(css="div.account-email")private WebElement accountMail;
 	public Boolean isHomePageLoaded(){
 		return driver.getTitle().toString().contains("Home - Wolfram Development Platform");
 	}
@@ -43,5 +44,8 @@ public class HomePage {
 		clickElement(accountButton);
 		clickElement(signoutButton);
 	}
-	
+	public String getAccountMailId(){
+		clickElement(accountButton);
+		return accountMail.getAttribute("title").toString().trim();
+	}
 }

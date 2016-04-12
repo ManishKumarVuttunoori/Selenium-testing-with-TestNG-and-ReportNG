@@ -23,12 +23,16 @@ public class MainPage {
 		PageFactory.initElements(driver,this);
 		
 	}
+	public Boolean isMainPageLoaded(){
+		return driver.getTitle().contains("Wolfram Cloud");
+	}
 	@FindBy(tagName="iframe")private WebElement iframe;
 	@FindBy(id="wdp-tile")private WebElement devButton;
 	public void goToSignInPage(){
 		driver.switchTo().frame(iframe);
 		wait.until(ExpectedConditions.elementToBeClickable(devButton));
 		devButton.click();
+		
 		
 	}
 	
