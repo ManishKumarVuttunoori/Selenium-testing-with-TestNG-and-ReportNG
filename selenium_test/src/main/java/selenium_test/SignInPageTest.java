@@ -27,11 +27,13 @@ public class SignInPageTest {
 	
 	@AfterClass
 	public void closeDriver(){
+		//close the drivers
 		driver.close();
 		driver.quit();
 	}
 	@Test(priority=0)
 	public void confirmSignInPage(){
+	// isSignInPageLoaded() returns a boolean value after comparing page's current title with the expected title within the class.
 	Assert.assertTrue(signIn.isSignInPageLoaded());	
 	}
 	

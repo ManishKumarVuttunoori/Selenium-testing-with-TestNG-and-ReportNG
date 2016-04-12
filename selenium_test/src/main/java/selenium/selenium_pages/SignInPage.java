@@ -9,10 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignInPage{
-
+	// Page for the SignIn page
 	private WebDriver driver;
 	private WebDriverWait wait;
-	
+	//Locators
 	@FindBy(css="#createAccount")private WebElement createButton;
 	@FindBy(css="#email")private WebElement signinEmail;
 	@FindBy(css="#password")private WebElement signinPassword;
@@ -39,15 +39,15 @@ public class SignInPage{
 	public Boolean isSignInPageLoaded(){
 		return driver.getTitle().contains("Sign In - Wolfram Development Platform");
 	}
-	
+	//  signs in with the given credentials
 	public void goTologinPage(){
 		
 		signinButton.click();
 		signinButton.submit();
 		
 	}
-	public void clickSubmit(){
-		
+	public void clickCreateSubmit(){
+		// clicks createId button which takes to SignUp Page.
 		wait.until(ExpectedConditions.elementToBeClickable(createButton));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("var evt = document.createEvent('MouseEvents');" + "evt.initMouseEvent('click',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0,null);" + "arguments[0].dispatchEvent(evt);",createButton);

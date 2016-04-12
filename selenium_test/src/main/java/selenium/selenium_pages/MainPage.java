@@ -11,10 +11,8 @@ public class MainPage {
 	
 	private WebDriver driver;
 	private static String PAGE_URL = "http://www.wolframcloud.com/";
-	
-	//locators needed for the page
-	
 	private WebDriverWait wait;
+	
 	public MainPage(WebDriver driver)
 	{
 		this.driver = driver;
@@ -26,10 +24,12 @@ public class MainPage {
 	public Boolean isMainPageLoaded(){
 		return driver.getTitle().contains("Wolfram Cloud");
 	}
+	//locators needed for the page
 	@FindBy(tagName="iframe")private WebElement iframe;
 	@FindBy(id="wdp-tile")private WebElement devButton;
+	
 	public void goToSignInPage(){
-		driver.switchTo().frame(iframe);
+		driver.switchTo().frame(iframe);   // switches to iframe
 		wait.until(ExpectedConditions.elementToBeClickable(devButton));
 		devButton.click();
 		

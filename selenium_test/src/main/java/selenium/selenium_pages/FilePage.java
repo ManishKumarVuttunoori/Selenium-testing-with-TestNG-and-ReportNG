@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FilePage {
+	// For the new window generated after clicking on new note book from the dropdown menu.
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private String tempHandle;
@@ -24,11 +25,13 @@ public class FilePage {
 			if(!hnd.equals(tempHandle))
 				handle = hnd;
 		}
+		// move the control to new window  
 		driver.switchTo().window(handle);
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver,20);
 		wait.until(ExpectedConditions.elementToBeClickable(divField));
 	}
+	// Locators
 	@FindBy(css="#header-account")private WebElement accountButton;
 	@FindBy(css="#account-signout")private WebElement signoutButton;
 	@FindBy(css="#renameButton")private WebElement divField;
@@ -39,6 +42,7 @@ public class FilePage {
 	}
 	
 	public Boolean verifyNBExists(){
+		// verifies if ".nb" extension is present in the file name field
 		clickElement(divField);
 		Boolean nBExists =  renameField.getAttribute("value").equals(".nb");
 		driver.close();
@@ -51,8 +55,8 @@ public class FilePage {
 		element.click();
 	}
 	public void signOut(){
+		// perform sign out operation
 		clickElement(accountButton);
-		
 		clickElement(signoutButton);
 	}
 }

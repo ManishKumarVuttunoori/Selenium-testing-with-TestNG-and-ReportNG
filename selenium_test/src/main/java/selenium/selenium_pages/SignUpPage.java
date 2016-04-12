@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignUpPage {
-
+	// Page for the SignUp Page
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
@@ -21,7 +21,7 @@ public class SignUpPage {
 		PageFactory.initElements(this.driver, this);
 		this.wait.until(ExpectedConditions.elementToBeClickable(signinButton));
 	}
-	
+	//Locators
 	@FindBy(css="#email")private WebElement wolframId;
 	@FindBy(css="#firstname")private WebElement firstName;
 	@FindBy(css="#lastname")private WebElement lastName;
@@ -35,7 +35,7 @@ public class SignUpPage {
 
 		return driver.getTitle().toString().contains("Sign Up - Wolfram Development Platform");
 	}
-	public void clickButton(){
+	public void clickSubmit(){
 		signinButton.click();
 		formButton.submit();
 	}
@@ -76,7 +76,7 @@ public class SignUpPage {
 		}
 		return errors;
 	}
-	
+	// clears all input fields
 	public void clearAllFields(){
 		this.firstName.clear();
 		this.lastName.clear();

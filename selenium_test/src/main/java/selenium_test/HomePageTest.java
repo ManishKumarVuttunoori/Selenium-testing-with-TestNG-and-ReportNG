@@ -14,6 +14,7 @@ import selenium.selenium_pages.MainPage;
 import selenium.selenium_pages.SignInPage;
 
 public class HomePageTest {
+	// contains tests to check that user is logged in into correct page and account.
 	private WebDriver driver;
 	private HomePage homePage;
 	private String id;
@@ -27,11 +28,14 @@ public class HomePageTest {
 		MainPage mainPage = PageFactory.initElements(driver, MainPage.class);
 		mainPage.goToSignInPage();
 		SignInPage signIn = PageFactory.initElements(driver,SignInPage.class);
-		this.id = "manish.vr111@gmail.com";
-		this.password = "pinkman111";
+		//write the email here
+		this.id = "jane.doe@gmail.com";
+		// write the password here
+		this.password = "*******";
 		signIn.enterId(this.id);
 		signIn.enterPassword(this.password);
 		signIn.goTologinPage();
+		// create HomePage's object using PageFactory
 		homePage = PageFactory.initElements(driver,HomePage.class);
 	}
 	
@@ -45,10 +49,12 @@ public class HomePageTest {
 	}
 	@Test(priority=0)
 	public void confirmHomePage(){
+		// isHomePageLoaded returns a boolean value after comparing page's current title with the expected title within the class.
 		Assert.assertTrue(homePage.isHomePageLoaded());
 	}
 	@Test(priority=1)
 	public void isCorrectAccountOpened(){
+		//getAccountMailId() returns the mailid of the account whose session is currently running 
 		Assert.assertEquals(homePage.getAccountMailId(), this.id);
 	}
 	

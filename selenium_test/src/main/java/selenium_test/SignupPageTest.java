@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import selenium.selenium_pages.SignUpPage;
 
 public class SignupPageTest {
+	// contains tests for checking all the input fields validity
 	private WebDriver driver;
 	private SignUpPage signup;
 	@BeforeClass
@@ -24,6 +25,7 @@ public class SignupPageTest {
 	
 	@AfterClass
 	public void CloseDriver() {
+		//close the drivers
 		driver.close();
 		driver.quit();
 	}
@@ -35,8 +37,9 @@ public class SignupPageTest {
 	}
 	@Test(priority=1)
 	public void testWhenFieldsAreEmpty() {
+		// to see if error messages are displayed when form is submitted with empty fields.
 		signup.clearAllFields();
-		signup.clickButton();
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
 		// when all fields are empty errors list is greater than 2
 		// the best way to do it is to have a list of all expected values and compare it with the actual received strings
@@ -45,24 +48,25 @@ public class SignupPageTest {
 	
 	@Test(priority=1)
 	public void testEmailValidity() {
+		// to see if error messages are displayed when form is submitted with invalid email.
 		signup.clearAllFields();
 		signup.enterId("123@abc");
-		signup.clickButton();
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
 		Assert.assertTrue(TestHelper.isStringPresent(errors, "Please enter a valid email address in the format someone@example.com."));
 	}
 	
 	@Test(priority=1)
 	public void testPasswordValidity() {
-		// test the password size is less than 6
+		// test the password contains less than 6 characters
 		signup.clearAllFields();
 		signup.enterId("jane@doe.com");
 		signup.enterPassword("1234567");
-		signup.reenterPassword("12345");
-		signup.clickButton();
+		signup.reenterPassword("1234567");
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
 		
-		// when all fields are empty errors list is greater than 2
+		// is String Present looks for the presence of expected error message from all of errors present on current screen. 
 		Assert.assertTrue(TestHelper.isStringPresent(errors, "Passwords do not match; please enter a password and reenter to confirm.\nPasswords must contain at least 6 characters and no spaces."));
 	}
 	@Test(priority=1)
@@ -70,19 +74,20 @@ public class SignupPageTest {
 		// to check that programs returns an error when two passwords do not match
 		signup.clearAllFields();
 		signup.enterId("jane@doe.com");
-		signup.enterPassword("12345");
+		signup.enterPassword("abcd");
 		signup.reenterPassword("1235");
-		signup.clickButton();
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
 		Assert.assertTrue(TestHelper.isStringPresent(errors, "Passwords do not match; please enter a password and reenter to confirm.\nPasswords must contain at least 6 characters and no spaces."));
 	}
 	@Test(priority=1)
 	public void checkFirstNameAndLastNameFieldValiditywithNumbers(){
+		// check if numbers are allowed in firstname and lastname fields
 		signup.clearAllFields();
 		signup.enterId("jane@doe.com");
 		signup.enterFirstName("12345");
 		signup.enterLastName("56386");
-		signup.clickButton();
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
 		// given page accepts numbers into the firstname and lastname fields
 		Assert.assertFalse(TestHelper.isStringPresent(errors, "Please enter your last name."));
@@ -90,13 +95,14 @@ public class SignupPageTest {
 	}
 	@Test(priority=1)
 	public void checkFirstNameAndLastNameFieldValiditywithSpecialChars(){
+		// check if special chars are allowed in firstname and lastname fields
 		signup.clearAllFields();
 		signup.enterId("jane@doe.com");
 		signup.enterFirstName("%%&$&(^");
 		signup.enterLastName("%%&$&(^");
-		signup.clickButton();
+		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
-		// given page accepts numbers into the firstname and lastname fields
+		// given page accepts special chars into the firstname and lastname fields
 		Assert.assertFalse(TestHelper.isStringPresent(errors, "Please enter your last name."));
 		Assert.assertFalse(TestHelper.isStringPresent(errors, "Please enter your first name."));
 	}
@@ -109,8 +115,9 @@ public class SignupPageTest {
 		signup.enterLastName("Vuttunoori");
 		signup.enterPassword("qwerty126");
 		signup.reenterPassword("qwerty126");
-		signup.clickButton();
-		// must go to home page but wont as the mail id used here is already registered for an account, so just check for single error
+		signup.clickSubmit();
+		// must go to home page but wont as the mail id used here is already registered for an account, 
+		//so just checking for single error i.e. Email is already registered.
 		Assert.assertEquals(1, signup.getErrors().size());
 	}
 }

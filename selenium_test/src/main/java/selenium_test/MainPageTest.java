@@ -10,25 +10,28 @@ import org.testng.annotations.Test;
 
 import selenium.selenium_pages.MainPage;
 
-
 public class MainPageTest {
+	
 	private WebDriver driver;
 	private MainPage mainPage;
 	
 	@BeforeClass
 	public void OpenDriver() {
 		driver = new FirefoxDriver();
+		//load mainPage using PageFactory
 		mainPage = PageFactory.initElements(driver,MainPage.class);
 	}
 	
 	@AfterClass
 	public void CloseDriver() {
+		//close the drivers
 		driver.close();
 		driver.quit();
 	}
 	
 	@Test(priority=0)
-	public void confirmMainPage(){		
+	public void confirmMainPage(){
+		// isMainPageLoaded returns a boolean value after comparing page's current title with the expected title within the class.
 		Assert.assertTrue(mainPage.isMainPageLoaded());
 	}
 }
