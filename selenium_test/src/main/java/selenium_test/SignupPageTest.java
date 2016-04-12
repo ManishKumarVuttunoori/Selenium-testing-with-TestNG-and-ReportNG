@@ -41,9 +41,10 @@ public class SignupPageTest {
 		signup.clearAllFields();
 		signup.clickSubmit();
 		List<String> errors = signup.getErrors();
+	
 		// when all fields are empty errors list is greater than 2
 		// the best way to do it is to have a list of all expected values and compare it with the actual received strings
-		Assert.assertNotEquals(2,errors.size());
+		Assert.assertTrue(3<errors.size());
 	}
 	
 	@Test(priority=1)
